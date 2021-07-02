@@ -54,23 +54,5 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Intent intent = getIntent();
-
-        String layout = intent.getStringExtra("layout");
-
-        if(layout!=null){
-            if(layout.equals("main")){
-                Intent intent1 = new Intent(this, MainActivity.class);
-                startActivity(intent1);
-
-                //setContentView(R.layout.main);
-            } else if(layout.equals("settings")){
-                Intent intent2 = new Intent(this, SettingsActivity.class);
-                startActivity(intent2);
-
-                //setContentView(R.layout.settings);
-            } else{
-                Log.v("MYTAG", "this layout is unknown (" + layout + ")");
-            }
-        }
     }
 }

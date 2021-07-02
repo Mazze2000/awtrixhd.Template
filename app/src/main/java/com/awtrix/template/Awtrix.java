@@ -1,45 +1,65 @@
 package com.awtrix.template;
 
 import android.content.Intent;
+import android.media.MediaScannerConnection;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 
 
-public class Awtrix extends AppCompatActivity {
-    public String appName = "Template";
+public class Awtrix {
 
-    private View mContentView;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+    public static TcpClient mTcpClient;
+    private String packageName = "";
+
+    public void init(String packageName){
+        new ConnectTask().execute("");
+        this.packageName = packageName;
+
+        JSONObject sendJson = new JSONObject();
+
+        try {
+            sendJson.put("app",packageName);
+            mTcpClient.sendMessage(sendJson.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.d("Senden", sendJson.toString());
+
+        //key=app -> value= packetName (com.awtrix.template)
+        //key=cmd (comand)
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Intent intent = getIntent();
+    public void init(){
+        new ConnectTask().execute("");
+        JSONObject sendJson = new JSONObject();
+        try {
+            sendJson.put("app",packageName);
+            mTcpClient.sendMessage(sendJson.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        Log.d("Senden", sendJson.toString());
+    }
 
-        String layout = intent.getStringExtra("layout");
-
-        if(layout!=null){
-            if(layout.equals("main")){
-                Intent intent1 = new Intent(this, MainActivity.class);
-                startActivity(intent1);
-
-                //setContentView(R.layout.main);
-            } else if(layout.equals("settings")){
-                Intent intent2 = new Intent(this, SettingsActivity.class);
-                startActivity(intent2);
-
-                //setContentView(R.layout.settings);
-            } else{
-                Log.v("MYTAG", "this layout is unknown (" + layout + ")");
-            }
+    public void sendToServer(String messageType, String message){
+        if(!mTcpClient.getSocketIsConnected()){
+            Log.d("Socket", "is closed...");
+            this.init();
+        }
+        JSONObject sendJson = new JSONObject();
+        try {
+            sendJson.put("app",this.packageName);
+            sendJson.put(messageType,message);
+            mTcpClient.sendMessage(sendJson.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

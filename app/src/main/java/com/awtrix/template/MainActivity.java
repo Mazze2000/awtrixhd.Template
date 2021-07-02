@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,12 +13,24 @@ import com.awtrix.template.databinding.MainBinding;
 public class MainActivity extends AppCompatActivity {
     private MainBinding binding;
 
+    public static Awtrix awtrix = new Awtrix();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = MainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        awtrix.init(this.getPackageName());
+
+        Button button = (Button) findViewById(R.id.testButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                awtrix.sendToServer("cmd","finish");
+            }
+        });
+
     }
 
     @Override
@@ -50,22 +63,7 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         Intent intent = getIntent();
 
-        String layout = intent.getStringExtra("layout");
-
-        if(layout!=null){
-            if(layout.equals("main")){
-                Intent intent1 = new Intent(this, MainActivity.class);
-                startActivity(intent1);
-
-                //setContentView(R.layout.main);
-            } else if(layout.equals("settings")){
-                Intent intent2 = new Intent(this, SettingsActivity.class);
-                startActivity(intent2);
-
-                //setContentView(R.layout.settings);
-            } else{
-                Log.v("MYTAG", "this layout is unknown (" + layout + ")");
-            }
-        }
+        awtrix.sendToServer("cmd","hold");
+        //mTcpClient.sendMessage("Hallo Welt");
     }
 }
