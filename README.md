@@ -1,1 +1,1 @@
-# awtrixhd.Template
+# awtrixhd.template
