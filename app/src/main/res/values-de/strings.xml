@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Time</string>
+    <string name="settings_header">Template Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="settings">Einstellungen</string>
+    <string name="color_red">rot</string>
+    <string name="color_green">grün</string>
+    <string name="color_blue">blau</string>
+    <string name="background_color">Hintergrundfarbe</string>
+    <string name="text_color">Textfarbe</string>
+    <string name="example">Beispiel</string>
+    <string name="textType">Schriftart</string>
+</resources>
