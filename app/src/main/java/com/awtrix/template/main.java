@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -75,7 +76,7 @@ public class main extends AppCompatActivity {
         for(int i = 0;i<textArray.length;i++){
             textArray[i].setBackgroundColor(Color.rgb(settings.backgroundColor[0], settings.backgroundColor[1], settings.backgroundColor[2]));
             textArray[i].setTextColor(Color.rgb(settings.textColor[0], settings.textColor[1], settings.textColor[2]));
-            //textArray[i].setAutoSizeTextTypeUniformWithConfiguration(1, 1000, 1, TypedValue.COMPLEX_UNIT_FRACTION_PARENT);
+            textArray[i].setAutoSizeTextTypeUniformWithConfiguration(1, 280, 1, TypedValue.COMPLEX_UNIT_FRACTION_PARENT);
         }
         background0.setBackgroundColor(Color.rgb(settings.backgroundColor[0], settings.backgroundColor[1], settings.backgroundColor[2]));
 
@@ -102,6 +103,7 @@ public class main extends AppCompatActivity {
                 }
             }
         }, 0, 1000);
+
     }
 
     @Override
